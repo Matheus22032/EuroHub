@@ -9,7 +9,7 @@ export const Container = styled.View`
 `;
 
 export const TesteText = styled.Text`
-    font-size: 24px;
-    color: #000;
-    font-family: "CabinetBlack";
+  font-size: 24px;
+  color: #000;
+  font-family: "CabinetBlack";
 `;
