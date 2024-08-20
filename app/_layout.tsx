@@ -13,7 +13,14 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    CabinetBlack: require('../assets/fonts/CabinetGrotesk-Black.otf'),
+    CabinetBold: require('../assets/fonts/CabinetGrotesk-Bold.otf'),
+    CabinetExtrabold: require('../assets/fonts/CabinetGrotesk-Extrabold.otf'),
+    CabinetExtralight: require('../assets/fonts/CabinetGrotesk-Extralight.otf'),
+    CabinetLight: require('../assets/fonts/CabinetGrotesk-Light.otf'),
+    CabinetMedium: require('../assets/fonts/CabinetGrotesk-Medium.otf'),
+    CabinetRegular: require('../assets/fonts/CabinetGrotesk-Regular.otf'),
+    CabinetThin: require('../assets/fonts/CabinetGrotesk-Thin.otf'),
   });
 
   useEffect(() => {
