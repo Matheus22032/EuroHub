@@ -9,8 +9,17 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
+        tabBarStyle: {
+          backgroundColor: Colors.darkGunmetal,
+          borderColor: 'transparent',
+          borderTopEndRadius: 25,
+          borderTopStartRadius: 25,
+          height: 80,
+          position: 'absolute',
+        },
         tabBarActiveTintColor: Colors.cultured,
         headerShown: false,
+        tabBarLabel: () => null,
       }}
       >
         <Tabs.Screen
