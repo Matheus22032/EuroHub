@@ -5,5 +5,6 @@ export const Colors = {
   darkMidnightBlue: '#003564',
   philippineGray: '#909090',
   philippineYellow: '#FFC700',
-  yellowRose: '#FFF200'
+  yellowRose: '#FFF200',
+  smokyBlack: '#0e0e0e',
 };

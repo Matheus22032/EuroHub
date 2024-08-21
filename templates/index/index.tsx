@@ -1,20 +1,20 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Image, ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as S from "./styles";
 import { Link } from "expo-router";
+import Container from "@/components/Container";
+import ArrowButton from "@/components/ArrowButton";
 
 const IndexTemplate = () => {
     return (
         <SafeAreaView>
-          <S.Container>
-            <S.TesteText>Vamos melhorar
-            a saúde juntos!</S.TesteText>
-            <TouchableOpacity>
-                <Link href='/home'>
-                    <Text>Entrar</Text>
-                </Link>
-            </TouchableOpacity>
-          </S.Container>
+          <Container type="default">
+            <S.IndexContainer>
+              <S.HeroText>Vamos melhorar
+              a <S.SpanHeroText>saúde juntos!</S.SpanHeroText></S.HeroText>
+                      <ArrowButton />
+            </S.IndexContainer>
+          </Container>
         </SafeAreaView>
       );
 }
