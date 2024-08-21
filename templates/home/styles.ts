@@ -1,9 +1,10 @@
 import styled from "styled-components/native";
+import {Colors} from "@/constants/Colors";
 
 export const Container = styled.View`
   justify-content: center;
   align-items: center;
-  background-color: #f5f5f5;
+  background-color: ${Colors.cultured};
   display: flex;
   height: 100%;
 `;
