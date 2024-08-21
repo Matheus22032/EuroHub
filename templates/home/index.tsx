@@ -1,18 +1,25 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as S from "./styles";
-import { Text } from "react-native";
 import Container from "@/components/Container";
+import ProfileCard from "@/components/ProfileCard";
+import ContentCard from "@/components/ContentCard";
 
 const HomeTemplate = () => {
-    return (
-        <>
-            <SafeAreaView>
-                <Container type="home">
-                    <Text>Inovando com Sabedoria, Crescendo com Propósito</Text>
-                </Container>
-            </SafeAreaView>
-        </>
-    )
+  return (
+    <>
+      <SafeAreaView>
+        <Container type="home">
+          <S.HomeContainer>
+            <S.ProfileContainer>
+              <ProfileCard />
+            </S.ProfileContainer>
+            <S.HeroText>Inovando com Sabedoria, Crescendo com Propósito</S.HeroText>
+            <ContentCard title={"Treinamentos"} subtitle={"Desenvolvendo o Potencial, Superando Desafios"}/>
+          </S.HomeContainer>
+        </Container>
+      </SafeAreaView>
+    </>
+  )
 }
 
 export default HomeTemplate;

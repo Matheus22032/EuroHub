@@ -6,4 +6,5 @@ export const Container = styled.ImageBackground`
   display: flex;
   width: 100%;
   height: 100%;
+  align-items: center;
 `;
