@@ -6,6 +6,7 @@ export const HeroText = styled.Text`
   margin-right: 60px;
   color: ${Colors.cultured};
   font-family: "CabinetThin";
+  padding: 0 0 0 20px ;
 `;
 
 export const SpanHeroText = styled(HeroText)`
@@ -19,4 +20,5 @@ export const IndexContainer = styled.View`
   align-items: center;
   height: 100%;
   gap: 150px;
+
 `
