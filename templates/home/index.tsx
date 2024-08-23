@@ -14,7 +14,10 @@ const HomeTemplate = () => {
               <ProfileCard />
             </S.ProfileContainer>
             <S.HeroText>Inovando com Sabedoria, Crescendo com Propósito</S.HeroText>
-            <ContentCard title={"Treinamentos"} subtitle={"Desenvolvendo o Potencial, Superando Desafios"}/>
+            <S.CardsContainer>
+              <ContentCard title={"Treinamentos"} subtitle={"Desenvolvendo o Potencial,\nSuperando Desafios"} linkDirection={"/user"} />
+              <ContentCard title={"Conhecimento"} subtitle={"O Saber que Move, a Excelência que \nAlcança"} linkDirection={"/user"} />
+            </S.CardsContainer>
           </S.HomeContainer>
         </Container>
       </SafeAreaView>

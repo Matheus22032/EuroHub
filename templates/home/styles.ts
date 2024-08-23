@@ -19,3 +19,10 @@ export const HeroText = styled.Text`
 export const ProfileContainer = styled.View`
   width:100%;
 `;
+
+
+export const CardsContainer = styled.View`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+`;
