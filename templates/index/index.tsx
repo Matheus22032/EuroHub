@@ -10,7 +10,7 @@ const IndexTemplate = () => {
             <S.IndexContainer>
               <S.HeroText>Vamos melhorar
               a <S.SpanHeroText>saúde juntos!</S.SpanHeroText></S.HeroText>
-                      <ArrowButton linkDirection={'/home'} width="82px" />
+                      <ArrowButton linkDirection={'/home'} width="82px" type="next"/>
             </S.IndexContainer>
           </Container>
         </SafeAreaView>

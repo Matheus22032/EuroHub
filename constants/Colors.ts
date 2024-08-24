@@ -7,4 +7,5 @@ export const Colors = {
   philippineYellow: '#FFC700',
   yellowRose: '#FFF200',
   smokyBlack: '#0e0e0e',
+  outerSpace: '#47494A',
 };

@@ -25,4 +25,5 @@ export const CardsContainer = styled.View`
   display: flex;
   flex-direction: column;
   gap: 30px;
+  width: 100%;
 `;

@@ -61,6 +61,18 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      <Tabs.Screen
+        name="treinamento/treinamento"
+        options={{
+          href: null,
+          title: 'Treinamento',
+          tabBarStyle: {
+            display: 'none',
+          }
+        }}
+        
+      />
       
       
     </Tabs>

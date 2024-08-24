@@ -8,11 +8,10 @@ const ContentCard: React.FC<ContentProps> = ({ title, subtitle, linkDirection })
       <S.CardBackground source={require('../../assets/images/background-content-card.png')}>
         <S.ContainerCard>
           <S.ContentTitle>{title}</S.ContentTitle>
-          <S.ContentSubtitle>{subtitle}</S.ContentSubtitle>
+          <S.ContentSubtitle numberOfLines={2} ellipsizeMode="tail">{subtitle}</S.ContentSubtitle>
           <S.ContainerButton>
-            <ArrowButton linkDirection={linkDirection} width="56px" />
+            <ArrowButton linkDirection={linkDirection} width="56px" type="next" />
           </S.ContainerButton>
-
         </S.ContainerCard>
       </S.CardBackground>
     </>
