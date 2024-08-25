@@ -26,6 +26,8 @@ const TreinamentoTemplate = () => {
             const response = await axios.get(url, { headers });
             const data: TreinamentoItem[] = response.data.data;
             setCards(data);        
+            console.log(cards);
+            
         }
         catch (error) {
             console.log('error fetching data', error);
@@ -39,15 +41,14 @@ const TreinamentoTemplate = () => {
                     <S.TreinamentoHeaderContent>
                         <GoBackContainer />
                         <S.TreinamentoTitle>
-                            Seus Treinamentoss
+                            Seus Treinamentos
                         </S.TreinamentoTitle>
                     </S.TreinamentoHeaderContent>
                     <ScrollView>
                         <S.TreinamentosContent>
                             {cards.map((card) => (
-                                <ContentCard key={card.id} title={card.attributes.ContentTitle} subtitle={card.attributes.ContentDescription} linkDirection={"/treinamento/treinamento"}/>
+                                <ContentCard key={card.id} title={card.attributes.ContentTitle} subtitle={card.attributes.ContentDescription} linkDirection={"/conteudos/conteudoScreen"}/>
                             ))}
-                            {/* <ContentCard title={"Treinamento 1"} subtitle={"Descrição do Treinamento 1"} linkDirection={"/treinamento/treinamento"} /> */}
                         </S.TreinamentosContent>
                     </ScrollView>
                 </S.TreinamentoContainer>

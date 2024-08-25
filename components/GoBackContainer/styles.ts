@@ -1,7 +1,7 @@
 import { Colors } from "@/constants/Colors";
 import styled from "styled-components/native";
 
-export const BackContainer = styled.View`
+export const BackContainer = styled.TouchableOpacity`
     display: flex;
     flex-direction: row;
     align-items: center;

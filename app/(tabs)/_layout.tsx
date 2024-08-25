@@ -1,11 +1,10 @@
-import { Tabs, useSegments } from 'expo-router';
+import { Stack, Tabs } from 'expo-router';
 import React from 'react';
 
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 
 export default function TabLayout() {
-
   return (
     <Tabs
       screenOptions={{
@@ -21,15 +20,15 @@ export default function TabLayout() {
         headerShown: false,
         tabBarLabel: () => null,
       }}
-      >
-        <Tabs.Screen
+    >
+      <Tabs.Screen
         name="index"
         options={{
           href: null,
           title: 'Home',
           tabBarStyle: {
             display: 'none',
-          }
+          },
         }}
       />
       <Tabs.Screen
@@ -41,7 +40,6 @@ export default function TabLayout() {
           ),
         }}
       />
-
       <Tabs.Screen
         name="home"
         options={{
@@ -51,7 +49,6 @@ export default function TabLayout() {
           ),
         }}
       />
-
       <Tabs.Screen
         name="user"
         options={{
@@ -61,19 +58,6 @@ export default function TabLayout() {
           ),
         }}
       />
-
-      <Tabs.Screen
-        name="treinamento/treinamento"
-        options={{
-          href: null,
-          title: 'Treinamento',
-          tabBarStyle: {
-            display: 'none',
-          }
-        }}
-        
-      />
-      
       
     </Tabs>
   );

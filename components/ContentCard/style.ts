@@ -11,6 +11,10 @@ export const CardBackground = styled.ImageBackground`
   overflow: hidden;
 `;
 
+export const CardContainer = styled.TouchableOpacity`
+  width: 100%;
+`
+
 export const ContainerCard = styled.View`
   padding: 30px 20px 0 20px;
   width: 100%;

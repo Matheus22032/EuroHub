@@ -5,14 +5,18 @@ import * as S from "./styles";
 const ArrowButton: React.FC<ArrowButtonProps> = ({ linkDirection, width, type }) => {
   
   const router = useRouter();
-  const arrowSrc = type === 'next' ? require('../../assets/images/arrowButton.png') : require('../../assets/images/arrowBackButton.png');
+  const arrowSrc = type === 'back' ? require('../../assets/images/arrowBackButton.png') : require('../../assets/images/arrowButton.png');
 
   const handleClick = () => {
-    linkDirection ? router.push(linkDirection) : router.back();
+    if (!linkDirection) return;
+    if (type === 'next') {
+      router.push(linkDirection);
+      return;
+    };
   }
 
   return (
-      <S.ArrowContainer width={width} onPress={handleClick}>
+      <S.ArrowContainer width={width} onPress={handleClick} disabled={type != 'next'}>
         <S.ArrowButton source={arrowSrc} />
       </S.ArrowContainer>
   )

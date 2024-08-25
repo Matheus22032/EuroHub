@@ -4,5 +4,5 @@ import { TouchableOpacityProps } from "react-native-gesture-handler";
 export interface ArrowButtonProps extends TouchableOpacityProps {
   width: string;
   linkDirection?: Href;
-  type: "next" | "back";
+  type: "next" | "back" | "card";
 }
