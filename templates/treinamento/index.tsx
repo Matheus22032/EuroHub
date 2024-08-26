@@ -11,33 +11,24 @@ import { cardSlice } from "@/redux/store";
 
 const TreinamentoTemplate = () => {
     const dispatch = useDispatch();
-    const card = useSelector((state) => state);
+    const id = useSelector((state: any) => state.id);
 
     const [cards, setCards] = useState<TreinamentoItem[]>([]);
 
-    const test = (id: number) => {
-        const selectedCard = cards.find(card => card.id === id);
-        
-        if(selectedCard) {
-            dispatch(cardSlice.actions.setCurrentCard(selectedCard))
-        }
+    const setCardId = (id: number) => {
+        dispatch(cardSlice.actions.setCurrentCard(id))
     }
 
     useEffect(() => {
-        console.log(card);
         fetchTreinosData();
     }, [])
 
-    const headers = {
-        "Content-Type": "application/json",
-    };
 
     const url = 'http://192.168.0.189:1337/api/treinos';
     
-
     const fetchTreinosData = async () => {
         try {
-            const response = await axios.get(url, { headers });
+            const response = await axios.get(url);
             const data: TreinamentoItem[] = response.data.data;
             setCards(data);        
         }
@@ -59,7 +50,7 @@ const TreinamentoTemplate = () => {
                         <ScrollView>
                             <S.TreinamentosContent>
                                 {cards.map((card) => (
-                                    <ContentCard key={card.id} title={card.attributes.ContentTitle} subtitle={card.attributes.ContentDescription} linkDirection={"/conteudos/conteudoScreen"} pressFunction={() => test(card.id)}/>
+                                    <ContentCard key={card.id} title={card.attributes.ContentTitle} subtitle={card.attributes.ContentDescription} linkDirection={"/conteudos/conteudoScreen"} pressFunction={() => setCardId(card.id)}/>
                                 ))}
                             </S.TreinamentosContent>
                         </ScrollView>

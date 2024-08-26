@@ -1,21 +1,15 @@
 import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-const initialState : TreinamentoItem = {
+const initialState = {
     id: 0,
-    attributes: {
-        ContentTitle: 'Teste',
-        ContentDescription: 'Teste',
-        Content: []
-    },
 };
 
 export const cardSlice = createSlice({
-    name: 'card',
+    name: 'cardId',
     initialState,
     reducers: {
-        setCurrentCard(state, action: PayloadAction<TreinamentoItem>) {
-            state.id = action.payload.id;
-            state.attributes = action.payload.attributes;
+        setCurrentCard(state, action) {
+            state.id = action.payload;
         }, 
     },
 })

@@ -30,6 +30,3 @@ interface TreinamentoItem {
     attributes: TreinamentoAttributes;
 }
 
-interface RootState {
-    card: TreinamentoItem;
-  }
