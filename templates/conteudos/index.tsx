@@ -1,18 +1,17 @@
 import GoBackContainer from "@/components/GoBackContainer";
 import * as S from "./styles";
-import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useLocalSearchParams } from "expo-router";
+import { useSelector } from "react-redux";
 
 const ConteudosTemplate = () => {
-    const { card } = useLocalSearchParams();
+    const card = useSelector((state) => state.card);
 
     return (
         <SafeAreaView>
             <S.TreinamentoContainer>
                 <GoBackContainer />
-                <S.TreinamentoTitle>{card}</S.TreinamentoTitle>
-                <S.TreinamentoTitle>AAAGAGAGAGA</S.TreinamentoTitle>
+                <S.TreinamentoTitle>{card.id}</S.TreinamentoTitle>
+                <S.TreinamentoTitle>{card.attributes.ContentTitle}</S.TreinamentoTitle>
             </S.TreinamentoContainer>
         </SafeAreaView>
     )

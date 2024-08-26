@@ -4,5 +4,5 @@ export interface ContentProps {
   title : String;
   subtitle: String;
   linkDirection: Href;
-  params?: TreinamentoItem;
+  pressFunction?: () => void;
 }

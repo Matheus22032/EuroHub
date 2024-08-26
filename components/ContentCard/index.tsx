@@ -3,12 +3,15 @@ import ArrowButton from "../ArrowButton";
 import { ContentProps } from "./props";
 import * as S from "./style";
 import { useRouter } from "expo-router";
-const ContentCard: React.FC<ContentProps> = ({ title, subtitle, linkDirection, params }) => {
+const ContentCard: React.FC<ContentProps> = ({ title, subtitle, linkDirection, pressFunction }) => {
 
   const router = useRouter();
 
   const handlePress = () => {
     router.push(linkDirection);
+    if (pressFunction) {
+      pressFunction();
+    }
   }
 
   return (
