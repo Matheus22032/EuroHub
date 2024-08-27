@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { cardSlice } from "@/redux/store";
+import { TreinamentoItem } from "@/interfaces/interfaces";
 
 const TreinamentoTemplate = () => {
     const dispatch = useDispatch();

@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ScrollView } from "react-native";
+import { TreinamentoItem } from "@/interfaces/interfaces";
+import QuizComponent from "@/components/QuizComponent";
 
 const ConteudosTemplate = () => {
     const [card, setCard] = useState<TreinamentoItem>();
@@ -12,7 +14,7 @@ const ConteudosTemplate = () => {
 
     useEffect(() => {
         fetchTreinosData();
-    }, [cardId]); // Adicione o cardId como dependência para garantir que a função seja chamada quando ele mudar
+    }, [cardId]); 
 
     const url = `http://192.168.0.189:1337/api/treinos/${cardId}?populate=*`;
 
@@ -26,12 +28,13 @@ const ConteudosTemplate = () => {
         }
     }
 
-    useEffect(() => {
-        if (card) {
-            card.attributes.Content?.map(item => console.log(item)
-            ); // Aqui você verá o valor atualizado de card
-        }
-    }, [card]);
+    // useEffect(() => {
+    //     if (card) {
+    //         card.attributes.Quiz?.map(item => console.log(item))
+            
+    //     }
+    // }, [card]);
+
 
     return (
         <SafeAreaView>
@@ -44,6 +47,9 @@ const ConteudosTemplate = () => {
                             if (item.type === 'paragraph') {
                                 return <S.TreinamentoParagraph key={index}>{item.children[0].text}</S.TreinamentoParagraph>
                             }
+                            if (item.type === 'heading') {
+                                return <S.TreinamentoHeading level={item.level} key={index}>{item.children[0].text}</S.TreinamentoHeading>
+                            }
                         })
                     }
                     {
@@ -52,16 +58,7 @@ const ConteudosTemplate = () => {
                     {
                         card?.attributes.Quiz &&
                         card.attributes.Quiz.map((quiz, quizIndex) => (
-                            <React.Fragment key={quizIndex}>
-                                <S.TreinamentoQuizNumber>Pergunta {quizIndex + 1}</S.TreinamentoQuizNumber>
-                                <S.TreinamentoQuizQuestion>{quiz.questao}</S.TreinamentoQuizQuestion>
-
-                                {/* {quiz.respostas.map((resposta, respostaIndex) => (
-                                    <S.TreinamentoQuizAnswer key={respostaIndex}>
-                                        {resposta.children[0].text}
-                                    </S.TreinamentoQuizAnswer>
-                                ))} */}
-                            </React.Fragment>
+                            <QuizComponent key={quizIndex} quizIndex={quizIndex} data={quiz} />
                         ))
                     }
 

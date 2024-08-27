@@ -1,32 +1,31 @@
-interface TreinamentoAttributes {
+export interface TreinamentoAttributes {
     ContentTitle: string;
     ContentDescription: string;
-    Content?: {
-        type: string;
-        children: {
-            type: string;
-            text: string;
-        }[];
-    }[];
+    Content?: ContentProps[];
     createdAt?: string;
     updatedAt?: string;
     publishedAt?: string;
-    Quiz?: {
-        id: number;
-        questao: string;
-        respostas: {
-            type: string
-            children: {
-                type: string;
-                text: string;
-            }[];
-        }[]
-        numeroResposta: number;
-    }[]
+    Quiz?: QuizProps[]
 }
 
-interface TreinamentoItem {
+export interface TreinamentoItem {
     id: number;
     attributes: TreinamentoAttributes;
+}
+
+export interface ContentProps {
+    type: string
+    children: {
+        type: string;
+        text: string;
+    }[];
+    level?: number;
+}
+
+export interface QuizProps {
+    id: number;
+    Questao: string;
+    Respostas: ContentProps[];
+    NumeroResposta: number;
 }
 
