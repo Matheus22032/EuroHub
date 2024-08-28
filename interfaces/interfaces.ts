@@ -20,6 +20,7 @@ export interface ContentProps {
         text: string;
     }[];
     level?: number;
+    image?: ImageProps;
 }
 
 export interface QuizProps {
@@ -29,3 +30,8 @@ export interface QuizProps {
     NumeroResposta: number;
 }
 
+export interface ImageProps {
+    url: string;
+    alt: string;
+    caption: string;
+}

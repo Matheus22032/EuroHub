@@ -7,6 +7,7 @@ import axios from "axios";
 import { ScrollView } from "react-native";
 import { TreinamentoItem } from "@/interfaces/interfaces";
 import QuizComponent from "@/components/QuizComponent";
+import ImageComponent from "@/components/ImageComponent";
 
 const ConteudosTemplate = () => {
     const [card, setCard] = useState<TreinamentoItem>();
@@ -50,6 +51,11 @@ const ConteudosTemplate = () => {
                             if (item.type === 'heading') {
                                 return <S.TreinamentoHeading level={item.level} key={index}>{item.children[0].text}</S.TreinamentoHeading>
                             }
+                            if (item.type === 'image') {
+                                if (item.image) {
+                                    return <ImageComponent key={index} image={item.image} />
+                                }
+                            }
                         })
                     }
                     {
@@ -61,8 +67,6 @@ const ConteudosTemplate = () => {
                             <QuizComponent key={quizIndex} quizIndex={quizIndex} data={quiz} />
                         ))
                     }
-
-
                 </ScrollView>
             </S.TreinamentoContainer>
         </SafeAreaView>
