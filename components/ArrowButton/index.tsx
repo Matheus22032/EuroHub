@@ -1,15 +1,25 @@
-import { Link } from "expo-router";
-import { Image, TouchableOpacity } from "react-native";
+import { Link, useRouter } from "expo-router";
+import { ArrowButtonProps } from "./props";
+import * as S from "./styles";
 
+const ArrowButton: React.FC<ArrowButtonProps> = ({ linkDirection, width, type }) => {
+  
+  const router = useRouter();
+  const arrowSrc = type === 'back' ? require('../../assets/images/arrowBackButton.png') : require('../../assets/images/arrowButton.png');
 
-const ArrowButton = () => {
-    return (
-        <Link href={'/home'} asChild>
-            <TouchableOpacity>
-                <Image source={require('../../assets/images/arrowButton.png')}/>
-            </TouchableOpacity>
-        </Link>
-    )
+  const handleClick = () => {
+    if (!linkDirection) return;
+    if (type === 'next') {
+      router.push(linkDirection);
+      return;
+    };
+  }
+
+  return (
+      <S.ArrowContainer width={width} onPress={handleClick} disabled={type != 'next'}>
+        <S.ArrowButton source={arrowSrc} />
+      </S.ArrowContainer>
+  )
 }
 
 export default ArrowButton;

@@ -1,21 +1,24 @@
-import { Image, ImageBackground, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as S from "./styles";
-import { Link } from "expo-router";
 import Container from "@/components/Container";
 import ArrowButton from "@/components/ArrowButton";
+import { Provider } from "react-redux";
+import { store } from "@/redux/store";
 
 const IndexTemplate = () => {
+
     return (
+      <Provider store={store}>
         <SafeAreaView>
           <Container type="default">
             <S.IndexContainer>
               <S.HeroText>Vamos melhorar
               a <S.SpanHeroText>saúde juntos!</S.SpanHeroText></S.HeroText>
-                      <ArrowButton />
+                      <ArrowButton linkDirection={'/home'} width="82px" type="next"/>
             </S.IndexContainer>
           </Container>
         </SafeAreaView>
+      </Provider>
       );
 }
 

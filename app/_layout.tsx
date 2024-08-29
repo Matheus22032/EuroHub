@@ -1,8 +1,10 @@
+import { store } from '@/redux/store';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { Provider } from 'react-redux';
 
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -31,9 +33,13 @@ export default function RootLayout() {
   }
 
   return (
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
+      <Provider store={store}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
+          <Stack.Screen name="conteudos/conteudoScreen" options={{ headerShown: false }}/>
+          <Stack.Screen name="treinamentos/treinamentoScreen" options={{ headerShown: false }}/>
+        </Stack>
+      </Provider>
   );
 }
