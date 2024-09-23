@@ -48,6 +48,10 @@ export default function RootLayout() {
           name="treinamentos/treinamentoScreen"
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="conhecimento/conhecimentoScreen"
+          options={{ headerShown: false }}
+        />
       </Stack>
     </Provider>
   );

@@ -13,16 +13,26 @@ const HomeTemplate = () => {
             <S.ProfileContainer>
               <ProfileCard />
             </S.ProfileContainer>
-            <S.HeroText>Inovando com Sabedoria, Crescendo com Propósito</S.HeroText>
+            <S.HeroText>
+              Inovando com Sabedoria, Crescendo com Propósito
+            </S.HeroText>
             <S.CardsContainer>
-              <ContentCard title={"Treinamentos"} subtitle={"Desenvolvendo o Potencial. \nSuperando Desafios"} linkDirection={"/treinamentos/treinamentoScreen"} />
-              <ContentCard title={"Conhecimento"} subtitle={"O Saber que Move, a Excelência que Alcança"} linkDirection={"/user"} />
+              <ContentCard
+                title={"Treinamentos"}
+                subtitle={"Desenvolvendo o Potencial. \nSuperando Desafios"}
+                linkDirection={"/treinamentos/treinamentoScreen"}
+              />
+              <ContentCard
+                title={"Conhecimento"}
+                subtitle={"O Saber que Move, a Excelência que Alcança"}
+                linkDirection={"/conhecimento/conhecimentoScreen"}
+              />
             </S.CardsContainer>
           </S.HomeContainer>
         </Container>
       </SafeAreaView>
     </>
-  )
-}
+  );
+};
 
 export default HomeTemplate;
