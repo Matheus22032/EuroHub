@@ -4,8 +4,8 @@ import { Colors } from "@/constants/Colors";
 export const HomeContainer = styled.View`
   display: flex;
   height: 100%;
-  width: 90%;
-  padding: 50px 0 0 0;
+  width: 100%;
+  padding: 50px 20px 0;
   align-items: center;
 `;
 
