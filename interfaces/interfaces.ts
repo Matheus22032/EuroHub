@@ -35,3 +35,8 @@ export interface ImageProps {
   alt: string;
   caption?: string;
 }
+
+export interface ChatProps {
+  role: string;
+  message: string;
+}
