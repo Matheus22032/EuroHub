@@ -1,5 +1,6 @@
 import { Colors } from "@/constants/Colors";
 import styled from "styled-components/native";
+import C from './const';
 
 export const Container = styled.View`
   display: flex;
@@ -40,7 +41,8 @@ export const ChatContainer = styled.ScrollView`
   display: flex;
   flex: 1; 
   flex-direction: column;
-  padding: 60px 15px 0;
+  padding: 60px 15px;
+  margin-bottom: 40px;
 `;
 
 export const MessageContainer = styled.View`
@@ -62,11 +64,13 @@ export const ChatMessage = styled.View<{ $role: string }>`
   align-self: ${({ $role }) => $role === "user" ? "flex-end" : "flex-start"}; 
 `;
 
-export const ChatBubbleTail = styled.View<{ $role: string }>`
+export const ChatBubbleTail = styled.ImageBackground<{ $role: string }>`
   width: 15px;
   height: 15px;
   border-radius: 7.5px;
   background-color: #fff; 
+  background-size: cover;
+  background-image: ${({ $role }) => $role === "user" ? `url('${C.userIcon}')` : "url('/assets/images/rochelle.png')"};
   align-self: ${({ $role }) => $role === "user" ? "flex-end" : "flex-start"};
   z-index: 0;  
 `;
