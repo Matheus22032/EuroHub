@@ -1,8 +1,8 @@
-import { Stack, Tabs } from 'expo-router';
-import React from 'react';
+import { Stack, Tabs } from "expo-router";
+import React from "react";
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
+import { TabBarIcon } from "@/components/navigation/TabBarIcon";
+import { Colors } from "@/constants/Colors";
 
 export default function TabLayout() {
   return (
@@ -10,11 +10,11 @@ export default function TabLayout() {
       screenOptions={{
         tabBarStyle: {
           backgroundColor: Colors.darkGunmetal,
-          borderColor: 'transparent',
+          borderColor: "transparent",
           borderTopEndRadius: 25,
           borderTopStartRadius: 25,
           height: 80,
-          position: 'absolute',
+          position: "absolute",
         },
         tabBarActiveTintColor: Colors.cultured,
         headerShown: false,
@@ -25,40 +25,51 @@ export default function TabLayout() {
         name="index"
         options={{
           href: null,
-          title: 'Home',
+          title: "Home",
           tabBarStyle: {
-            display: 'none',
+            display: "none",
           },
         }}
       />
       <Tabs.Screen
         name="chat"
         options={{
-          title: 'Chat',
+          title: "Chat",
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'chatbubble' : 'chatbubble-outline'} color={color} />
+            <TabBarIcon
+              name={focused ? "chatbubble" : "chatbubble-outline"}
+              color={color}
+            />
           ),
+          tabBarStyle: {
+            display: "none",
+          },
         }}
       />
       <Tabs.Screen
         name="home"
         options={{
-          title: 'Home',
+          title: "Home",
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+            <TabBarIcon
+              name={focused ? "home" : "home-outline"}
+              color={color}
+            />
           ),
         }}
       />
       <Tabs.Screen
         name="user"
         options={{
-          title: 'User',
+          title: "User",
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
+            <TabBarIcon
+              name={focused ? "person" : "person-outline"}
+              color={color}
+            />
           ),
         }}
       />
-      
     </Tabs>
   );
 }

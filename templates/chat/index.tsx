@@ -4,20 +4,24 @@ import { Text, TouchableOpacity } from "react-native";
 import Container from "@/components/Container";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import GoBackContainer from "@/components/GoBackContainer";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const ChatTemplate = () => {
   const [result, setResult] = useState<string>("Carregando...");
+  const [inputText, setInputText] = useState<string>("");
 
   const fetchData = async () => {
-    console.log("Fetching data...");
-    const url = "http://192.168.0.157:3001/ollama";    
+    const urlIp = process.env.EXPO_PUBLIC_API_URL;
+    const url = `${urlIp}:3001/ollama`;
+
+    console.log(url);
+
     const body = {
-      message: "Quais são os principais valores da Eurofarma?"
-    }
+      message: "Quais são os principais valores da Eurofarma?",
+    };
 
     try {
-      console.log("Fetching data...2");
-
       const response = await axios.post(url, body);
 
       console.log(response.data);
@@ -40,11 +44,35 @@ const ChatTemplate = () => {
     <>
       <SafeAreaView>
         <Container type="default">
-          <TouchableOpacity onPress={() => fetchData()}>
-            <Text>Recarregar</Text>
-          </TouchableOpacity>
-          <Text>{result}</Text>
-          
+          <S.Container>
+            <GoBackContainer link={"/home"} />
+            <S.ChatTitle>Chat com Rochelle</S.ChatTitle>
+            <S.ChatContainer>
+              <S.MessageContainer>
+                <S.ChatMessage $role="admin">
+                  <S.ChatMessageText>Asad</S.ChatMessageText>
+                </S.ChatMessage>
+                <S.ChatBubbleTail $role="admin" />
+              </S.MessageContainer>
+              <S.MessageContainer>
+                <S.ChatMessage $role="user">
+                  <S.ChatMessageText>Asad</S.ChatMessageText>
+                </S.ChatMessage>
+                <S.ChatBubbleTail $role="user" />
+              </S.MessageContainer>
+            </S.ChatContainer>
+          </S.Container>
+          <S.InputChatContainer>
+            <S.InputChat
+              value={inputText}
+              onChangeText={setInputText}
+              placeholder="Faça uma pergunta para Rochelle"
+              placeholderTextColor={"#fff"}
+            />
+            <TouchableOpacity>
+              <Ionicons name="send-sharp" size={30} color="white" />
+            </TouchableOpacity>
+          </S.InputChatContainer>
         </Container>
       </SafeAreaView>
     </>
