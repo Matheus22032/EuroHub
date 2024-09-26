@@ -9,6 +9,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { cardSlice } from "@/redux/store";
 import { TreinamentoItem } from "@/interfaces/interfaces";
+import { User } from "@/constants/User";
 
 const TreinamentoTemplate = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,11 @@ const TreinamentoTemplate = () => {
     fetchTreinosData();
   }, []);
 
-  const url = "http://192.168.0.189:1337/api/treinos";
+  const employeeId = User.id;
+
+  const currentDate = new Date().toISOString(); // Pega a data atual em formato ISO
+
+  const url = `http://192.168.0.189:1337/api/treinos?filters[employees][employee_id][$eq]=${employeeId}&filters[expireDate][$gt]=${currentDate}`;
 
   const fetchTreinosData = async () => {
     try {

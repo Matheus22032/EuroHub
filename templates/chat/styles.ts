@@ -1,6 +1,6 @@
 import { Colors } from "@/constants/Colors";
 import styled from "styled-components/native";
-import C from './const';
+import C from "./const";
 
 export const Container = styled.View`
   display: flex;
@@ -39,14 +39,14 @@ export const InputChat = styled.TextInput`
 
 export const ChatContainer = styled.ScrollView`
   display: flex;
-  flex: 1; 
+  flex: 1;
   flex-direction: column;
   padding: 60px 15px;
   margin-bottom: 40px;
 `;
 
 export const MessageContainer = styled.View`
-  position: relative; 
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -55,24 +55,24 @@ export const MessageContainer = styled.View`
 
 export const ChatMessage = styled.View<{ $role: string }>`
   padding: 12px;
-  margin-left: ${({ $role }) => $role === "user" ? "0" : "15px"};;
-  margin-right: ${({ $role }) => $role === "user" ? "15px" : "0"};;
-  border-radius: ${({ $role }) => $role === "user" ? "20px 20px 0 20px" : "20px 20px 20px 0"};
+  margin-left: ${({ $role }) => ($role === "user" ? "0" : "15px")};
+  margin-right: ${({ $role }) => ($role === "user" ? "15px" : "0")};
+  border-radius: ${({ $role }) =>
+    $role === "user" ? "20px 20px 0 20px" : "20px 20px 20px 0"};
   background-color: rgba(85, 85, 85, 0.8);
-  width: ${({ $role }) => $role === "user" ? "40%" : "50%"};
+  width: ${({ $role }) => ($role === "user" ? "40%" : "50%")};
   z-index: 1;
-  align-self: ${({ $role }) => $role === "user" ? "flex-end" : "flex-start"}; 
+  align-self: ${({ $role }) => ($role === "user" ? "flex-end" : "flex-start")};
 `;
 
 export const ChatBubbleTail = styled.ImageBackground<{ $role: string }>`
   width: 15px;
   height: 15px;
   border-radius: 7.5px;
-  background-color: #fff; 
+  background-color: #fff;
   background-size: cover;
-  background-image: ${({ $role }) => $role === "user" ? `url('${C.userIcon}')` : "url('/assets/images/rochelle.png')"};
-  align-self: ${({ $role }) => $role === "user" ? "flex-end" : "flex-start"};
-  z-index: 0;  
+  align-self: ${({ $role }) => ($role === "user" ? "flex-end" : "flex-start")};
+  z-index: 0;
 `;
 
 export const ChatMessageText = styled.Text`

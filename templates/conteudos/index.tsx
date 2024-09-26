@@ -2,7 +2,7 @@ import GoBackContainer from "@/components/GoBackContainer";
 import * as S from "./styles";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
-import React, { useEffect, useState } from "react";
+import React, { LegacyRef, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { ScrollView, Text } from "react-native";
 import { TreinamentoItem } from "@/interfaces/interfaces";
@@ -80,9 +80,9 @@ const ConteudosTemplate = () => {
               }
             }
           })}
-          {card?.attributes.Quiz && (
+          {card?.attributes.Quiz && card.attributes.Quiz.length > 0 ? (
             <S.TreinamentoQuizTitle>Quiz</S.TreinamentoQuizTitle>
-          )}
+          ) : null}
           {card?.attributes.Quiz &&
             card.attributes.Quiz.map((quiz, quizIndex) => (
               <QuizComponent
