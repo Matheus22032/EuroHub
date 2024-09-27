@@ -45,9 +45,9 @@ const IndexTemplate = () => {
             <S.HeroText>
               Vamos melhorar a <S.SpanHeroText>saúde juntos!</S.SpanHeroText>
             </S.HeroText>
-            <Canvas style={styles.canva} ref={canvaRef} onTouch={touchHandler}>
+            {/* <Canvas style={styles.canva} ref={canvaRef} onTouch={touchHandler}>
               <Path style="stroke" strokeWidth={2} path={path} />
-            </Canvas>
+            </Canvas> */}
             <ArrowButton linkDirection={"/home"} width="82px" type="next" />
           </S.IndexContainer>
         </Container>

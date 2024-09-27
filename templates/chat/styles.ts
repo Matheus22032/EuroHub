@@ -41,8 +41,10 @@ export const ChatContainer = styled.ScrollView`
   display: flex;
   flex: 1;
   flex-direction: column;
-  padding: 60px 15px;
-  margin-bottom: 40px;
+  padding: 0px 15px 10px;
+  padding-bottom: 0;
+  margin: 20px 0;
+  margin-bottom: 0;
 `;
 
 export const MessageContainer = styled.View`
