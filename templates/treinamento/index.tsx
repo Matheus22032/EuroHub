@@ -9,6 +9,8 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { cardSlice } from "@/redux/store";
 import { TreinamentoItem } from "@/interfaces/interfaces";
+import React from "react";
+
 import { User } from "@/constants/User";
 
 const TreinamentoTemplate = () => {

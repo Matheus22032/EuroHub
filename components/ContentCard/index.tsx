@@ -1,10 +1,15 @@
 import { TouchableOpacity } from "react-native";
+import React from "react";
 import ArrowButton from "../ArrowButton";
 import { ContentProps } from "./props";
 import * as S from "./style";
 import { useRouter } from "expo-router";
-const ContentCard: React.FC<ContentProps> = ({ title, subtitle, linkDirection, pressFunction }) => {
-
+const ContentCard: React.FC<ContentProps> = ({
+  title,
+  subtitle,
+  linkDirection,
+  pressFunction,
+}) => {
   const router = useRouter();
 
   const handlePress = () => {
@@ -12,23 +17,27 @@ const ContentCard: React.FC<ContentProps> = ({ title, subtitle, linkDirection, p
     if (pressFunction) {
       pressFunction();
     }
-  }
+  };
 
   return (
     <>
       <S.CardContainer onPress={handlePress}>
-        <S.CardBackground source={require('../../assets/images/background-content-card.png')}>
+        <S.CardBackground
+          source={require("../../assets/images/background-content-card.png")}
+        >
           <S.ContainerCard>
             <S.ContentTitle>{title}</S.ContentTitle>
-            <S.ContentSubtitle numberOfLines={2} ellipsizeMode="tail">{subtitle}</S.ContentSubtitle>
+            <S.ContentSubtitle numberOfLines={2} ellipsizeMode="tail">
+              {subtitle}
+            </S.ContentSubtitle>
             <S.ContainerButton>
-              <ArrowButton width="56px" type="card"/>
+              <ArrowButton width="56px" type="card" />
             </S.ContainerButton>
           </S.ContainerCard>
         </S.CardBackground>
       </S.CardContainer>
     </>
-  )
-}
+  );
+};
 
 export default ContentCard;

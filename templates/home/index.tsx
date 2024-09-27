@@ -1,5 +1,6 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as S from "./styles";
+import React from "react";
 import Container from "@/components/Container";
 import ProfileCard from "@/components/ProfileCard";
 import ContentCard from "@/components/ContentCard";
