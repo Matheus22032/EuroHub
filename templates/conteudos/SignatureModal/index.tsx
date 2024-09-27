@@ -16,6 +16,7 @@ export const SignatureModal = () => {
   const canvaRef = useRef<SkiaDomView | null>(null);
   const [shouldReset, setShouldReset] = useState(false);
   const [signature, setSignature] = useState("");
+  const [disabled, setDisabled] = useState(true);
 
   const touchHandler = useTouchHandler({
     onStart: (touchInfo: TouchInfo) => {
@@ -29,7 +30,10 @@ export const SignatureModal = () => {
       path.lineTo(x, y);
     },
     onEnd: () => {
-      setSignature(path.toSVGString());
+      const svgString = path.toSVGString();
+
+      setSignature(svgString);
+      setDisabled(svgString === "" || svgString === "M0,0");
     },
   });
 
@@ -45,8 +49,10 @@ export const SignatureModal = () => {
     if (shouldReset) {
       path.reset();
       setShouldReset(false);
+      setDisabled(true); // Desabilita o botão após o reset
     }
-  }, [shouldReset]);
+    console.log(disabled);
+  }, [shouldReset, path]);
 
   return (
     <S.SignatureModalContainer>
@@ -76,9 +82,13 @@ export const SignatureModal = () => {
           <S.SignatureButton onPress={onReset}>
             <S.SignatureButtonText>Resetar</S.SignatureButtonText>
           </S.SignatureButton>
-          <S.SignatureButton onPress={onSend}>
+          <S.SignatureSendButton
+            onPress={onSend}
+            disabled={disabled}
+            $isDisabled={disabled}
+          >
             <S.SignatureButtonText>Enviar</S.SignatureButtonText>
-          </S.SignatureButton>
+          </S.SignatureSendButton>
         </S.SignatureButtons>
       </S.SignatureModalContent>
     </S.SignatureModalContainer>

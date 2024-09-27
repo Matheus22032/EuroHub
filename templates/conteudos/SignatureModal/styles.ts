@@ -15,7 +15,7 @@ export const SignatureModalContainer = styled.View`
 export const SignatureModalContent = styled.View`
   display: flex;
   margin: auto;
-  background-color: ${Colors.darkGunmetal};
+  background-color: ${Colors.smokyBlack};
   padding: 30px;
   opacity: 1;
   z-index: 999;
@@ -84,8 +84,14 @@ export const SignatureButton = styled.TouchableOpacity`
   border-radius: 20px;
 `;
 
+export const SignatureSendButton = styled(SignatureButton)<{
+  $isDisabled: boolean;
+}>`
+  opacity: ${({ $isDisabled }) => ($isDisabled ? 0.5 : 1)};
+`;
+
 export const SignatureButtonText = styled.Text`
-  color: ${Colors.chineseBlack};
+  color: ${Colors.smokyBlack};
   font-size: 20px;
   font-family: CabinetBold;
   text-align: center;
