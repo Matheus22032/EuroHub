@@ -54,7 +54,7 @@ export const TreinamentoHeading = styled.Text<{ level: number | undefined }>`
   padding: 10px 30px;
 `;
 
-export const FinishTraining = styled.TouchableOpacity`
+export const FinishTraining = styled.TouchableOpacity<{ $isDisabled: boolean }>`
   background-color: ${Colors.yellowRose};
   padding: 20px;
   margin: 20px;
@@ -64,6 +64,7 @@ export const FinishTraining = styled.TouchableOpacity`
   align-self: flex-end;
   display: flex;
   align-items: center;
+  opacity: ${({ $isDisabled }) => ($isDisabled ? 0.3 : 1)};
 `;
 
 export const FinishTrainingText = styled.Text`
