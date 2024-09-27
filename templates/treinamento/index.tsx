@@ -28,7 +28,9 @@ const TreinamentoTemplate = () => {
 
   const currentDate = new Date().toISOString(); // Pega a data atual em formato ISO
 
-  const url = `http://192.168.0.189:1337/api/treinos?filters[employees][employee_id][$eq]=${employeeId}&filters[expireDate][$gt]=${currentDate}`;
+  const urlIp = process.env.EXPO_PUBLIC_API_URL;
+
+  const url = `http://${urlIp}:1337/api/treinos?filters[employees][employee_id][$eq]=${employeeId}&filters[expireDate][$gt]=${currentDate}`;
 
   const fetchTreinosData = async () => {
     try {

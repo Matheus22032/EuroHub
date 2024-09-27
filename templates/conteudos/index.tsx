@@ -41,7 +41,9 @@ const ConteudosTemplate = () => {
     fetchTreinosData();
   }, [cardId]);
 
-  const url = `http://192.168.0.189:1337/api/treinos/${cardId}?populate=*`;
+  const urlIp = process.env.EXPO_PUBLIC_API_URL;
+
+  const url = `http://${urlIp}/api/treinos/${cardId}?populate=*`;
 
   const fetchTreinosData = async () => {
     try {
