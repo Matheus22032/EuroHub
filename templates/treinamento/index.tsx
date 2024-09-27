@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { cardSlice } from "@/redux/store";
 import { TreinamentoItem } from "@/interfaces/interfaces";
 import React from "react";
-
 import { User } from "@/constants/User";
 
 const TreinamentoTemplate = () => {
@@ -30,13 +29,18 @@ const TreinamentoTemplate = () => {
 
   const currentDate = new Date().toISOString(); // Pega a data atual em formato ISO
 
-  const urlIp = process.env.EXPO_PUBLIC_API_URL;
+  const teste = process.env.EXPO_PUBLIC_API_URL;
+  console.log(teste);
 
-  const url = `http://${urlIp}:1337/api/treinos?filters[employees][employee_id][$eq]=${employeeId}&filters[expireDate][$gt]=${currentDate}`;
+  const url = `${teste}:1337/api/treinos?filters[employees][employee_id][$eq]=${employeeId}&filters[expireDate][$gt]=${currentDate}`;
+  // const url = `${urlIp}:1337/api/treinos`;
+  console.log(url);
 
   const fetchTreinosData = async () => {
     try {
       const response = await axios.get(url);
+      console.log(url);
+
       const data: TreinamentoItem[] = response.data.data;
       setCards(data);
     } catch (error) {
