@@ -1,10 +1,11 @@
 import * as S from "./styles";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { QuizComponentProps } from "./props";
 
-const QuizComponent = ({ data, quizIndex }: QuizComponentProps) => {
-    const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
-    // const correctAnswer = data.NumeroResposta;
+const QuizComponent = ({ data, quizIndex, isFinished }: QuizComponentProps) => {
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const correctAnswer = data.NumeroResposta;
+
   return (
     <React.Fragment>
       <S.TreinamentoQuizNumber>
@@ -13,11 +14,25 @@ const QuizComponent = ({ data, quizIndex }: QuizComponentProps) => {
       <S.TreinamentoQuizQuestion>{data.Questao}</S.TreinamentoQuizQuestion>
       <S.QuizContainer>
         {data.Respostas.map((resposta, index) => {
-            if(resposta.children[0].text === '') return;
+          if (resposta.children[0].text === "") return;
           return (
-            <S.AnswerContainer key={index} onPress={() => setSelectedAnswer(index)}>
-              <S.AnswerButton $isActive={selectedAnswer === index}/>
-              <S.AnswerText>{resposta.children[0].text}</S.AnswerText>
+            <S.AnswerContainer
+              key={index}
+              onPress={() => {
+                isFinished(quizIndex, index === correctAnswer);
+                setSelectedAnswer(index);
+              }}
+            >
+              <S.AnswerButton
+                $isActive={selectedAnswer === index}
+                $isWrong={index != correctAnswer}
+              />
+              <S.AnswerText
+                $isActive={selectedAnswer === index}
+                $isWrong={index != correctAnswer}
+              >
+                {resposta.children[0].text}
+              </S.AnswerText>
             </S.AnswerContainer>
           );
         })}
@@ -25,6 +40,5 @@ const QuizComponent = ({ data, quizIndex }: QuizComponentProps) => {
     </React.Fragment>
   );
 };
-
 
 export default QuizComponent;

@@ -29,17 +29,13 @@ const TreinamentoTemplate = () => {
 
   const currentDate = new Date().toISOString(); // Pega a data atual em formato ISO
 
-  const teste = process.env.EXPO_PUBLIC_API_URL;
-  console.log(teste);
+  const urlIp = process.env.EXPO_PUBLIC_API_URL;
 
-  const url = `${teste}:1337/api/treinos?filters[employees][employee_id][$eq]=${employeeId}&filters[expireDate][$gt]=${currentDate}`;
-  // const url = `${urlIp}:1337/api/treinos`;
-  console.log(url);
+  const url = `${urlIp}:1337/api/treinos?filters[employees][employee_id][$eq]=${employeeId}&filters[expireDate][$gt]=${currentDate}`;
 
   const fetchTreinosData = async () => {
     try {
       const response = await axios.get(url);
-      console.log(url);
 
       const data: TreinamentoItem[] = response.data.data;
       setCards(data);

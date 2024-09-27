@@ -16,6 +16,7 @@ const ConteudosTemplate = () => {
   const cardId = useSelector((state: any) => state.id);
   const router = useRouter();
   const [isFinishDisabled, setIsFinishDisabled] = useState<boolean>(true);
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean[]>([]);
 
   const handleAuthentication = async () => {
     const compatible = await LocalAuthentication.hasHardwareAsync();
@@ -44,7 +45,7 @@ const ConteudosTemplate = () => {
 
   const urlIp = process.env.EXPO_PUBLIC_API_URL;
 
-  const url = `http://${urlIp}/api/treinos/${cardId}?populate=*`;
+  const url = `${urlIp}:1337/api/treinos/${cardId}?populate=*`;
 
   const fetchTreinosData = async () => {
     try {
@@ -55,6 +56,19 @@ const ConteudosTemplate = () => {
       console.log("error fetching data", error);
     }
   };
+
+  const handleQuizAnswer = (index: number, isCorrect: boolean) => {
+    setIsAnswerCorrect((prevResults) => {
+      const updatedResults = [...prevResults];
+      updatedResults[index] = isCorrect;
+      return updatedResults;
+    });
+    console.log(isAnswerCorrect);
+  };
+
+  useEffect(() => {
+    setIsFinishDisabled(isAnswerCorrect.every((answer) => answer === false));
+  }, [isAnswerCorrect]);
 
   return (
     <SafeAreaView>
@@ -89,13 +103,18 @@ const ConteudosTemplate = () => {
           {card?.attributes.Quiz &&
             card.attributes.Quiz.map((quiz, quizIndex) => (
               <QuizComponent
+                isFinished={handleQuizAnswer}
                 key={quizIndex}
                 quizIndex={quizIndex}
                 data={quiz}
               />
             ))}
-          <S.FinishTraining onPress={handleAuthentication}>
-            <S.FinishTrainingText>Finalizar Treisnamento</S.FinishTrainingText>
+          <S.FinishTraining
+            onPress={handleAuthentication}
+            disabled={isFinishDisabled}
+            $isDisabled={isFinishDisabled}
+          >
+            <S.FinishTrainingText>Finalizar Treinamento</S.FinishTrainingText>
           </S.FinishTraining>
         </ScrollView>
       </S.TreinamentoContainer>
