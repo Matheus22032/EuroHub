@@ -43,3 +43,7 @@ export const ContainerButton = styled.View`
   flex-direction: row;
   justify-content: flex-end;
 `;
+
+export const ExpireDate = styled(ContentSubtitle)`
+  font-family: CabinetBold;
+`;

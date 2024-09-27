@@ -57,6 +57,7 @@ const TreinamentoTemplate = () => {
               {cards.map((card) => (
                 <ContentCard
                   key={card.id}
+                  expireDate={card.attributes.expireDate}
                   title={card.attributes.ContentTitle}
                   subtitle={card.attributes.ContentDescription}
                   linkDirection={"/conteudos/conteudoScreen"}

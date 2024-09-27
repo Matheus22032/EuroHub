@@ -6,6 +6,7 @@ export interface TreinamentoAttributes {
   updatedAt?: string;
   publishedAt?: string;
   Quiz?: QuizProps[];
+  expireDate?: string;
 }
 
 export interface TreinamentoItem {

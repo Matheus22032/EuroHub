@@ -5,4 +5,5 @@ export interface ContentProps {
   subtitle: String;
   linkDirection: Href;
   pressFunction?: () => void;
+  expireDate?: string;
 }
