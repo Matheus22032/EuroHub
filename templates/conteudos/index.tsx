@@ -15,6 +15,7 @@ const ConteudosTemplate = () => {
   const [card, setCard] = useState<TreinamentoItem>();
   const cardId = useSelector((state: any) => state.id);
   const router = useRouter();
+  const [isFinishDisabled, setIsFinishDisabled] = useState<boolean>(true);
 
   const handleAuthentication = async () => {
     const compatible = await LocalAuthentication.hasHardwareAsync();
@@ -94,7 +95,7 @@ const ConteudosTemplate = () => {
               />
             ))}
           <S.FinishTraining onPress={handleAuthentication}>
-            <S.FinishTrainingText>Finalizar Treinamento</S.FinishTrainingText>
+            <S.FinishTrainingText>Finalizar Treisnamento</S.FinishTrainingText>
           </S.FinishTraining>
         </ScrollView>
       </S.TreinamentoContainer>

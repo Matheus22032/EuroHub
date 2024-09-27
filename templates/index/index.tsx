@@ -3,17 +3,16 @@ import * as S from "./styles";
 import Container from "@/components/Container";
 import ArrowButton from "@/components/ArrowButton";
 import { Provider } from "react-redux";
+import React from "react";
 import { store } from "@/redux/store";
+import { useRef, useState } from "react";
+import { StyleSheet } from "react-native";
 import {
-  Canvas,
-  Path,
   Skia,
   SkiaDomView,
   TouchInfo,
   useTouchHandler,
 } from "@shopify/react-native-skia";
-import { useRef, useState } from "react";
-import { StyleSheet } from "react-native";
 
 const IndexTemplate = () => {
   const [path] = useState(Skia.Path.Make());
