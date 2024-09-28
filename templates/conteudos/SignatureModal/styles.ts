@@ -78,7 +78,7 @@ export const SignatureButtons = styled.View`
 `;
 
 export const SignatureButton = styled.TouchableOpacity`
-  background-color: ${Colors.yellowRose};
+  background-color: ${Colors.philippineGray};
   padding: 20px 40px;
   width: 45%;
   border-radius: 20px;
@@ -87,11 +87,13 @@ export const SignatureButton = styled.TouchableOpacity`
 export const SignatureSendButton = styled(SignatureButton)<{
   $isDisabled: boolean;
 }>`
+  background-color: ${Colors.yellowRose};
   opacity: ${({ $isDisabled }) => ($isDisabled ? 0.5 : 1)};
 `;
 
 export const SignatureButtonText = styled.Text`
   color: ${Colors.smokyBlack};
+
   font-size: 20px;
   font-family: CabinetBold;
   text-align: center;

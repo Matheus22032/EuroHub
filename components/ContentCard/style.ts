@@ -18,8 +18,9 @@ export const CardContainer = styled.TouchableOpacity`
 export const ContainerCard = styled.View`
   padding: 30px 20px 0 20px;
   width: 100%;
-  height: 170px;
+  min-height: 170px;
 `;
+
 export const ContentTitle = styled.Text`
   font-size: 32px;
   color: ${Colors.cultured};
@@ -35,15 +36,17 @@ export const ContentSubtitle = styled.Text`
 `;
 
 export const ContainerButton = styled.View`
-  width: 100%;
-  position: absolute;
-  bottom: 5px;
-  right: 15px;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
 `;
 
 export const ExpireDate = styled(ContentSubtitle)`
   font-family: CabinetBold;
+`;
+
+export const BottomContent = styled.View<{ $hasDate: boolean }>`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: ${({ $hasDate }) =>
+    $hasDate ? "space-between" : "flex-end"};
 `;

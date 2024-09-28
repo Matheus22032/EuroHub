@@ -8,46 +8,25 @@ import { Modal, ScrollView, Text } from "react-native";
 import { TreinamentoItem } from "@/interfaces/interfaces";
 import QuizComponent from "@/components/QuizComponent";
 import ImageComponent from "@/components/ImageComponent";
-import * as LocalAuthentication from "expo-local-authentication";
 import { useRouter } from "expo-router";
 import { SignatureModal } from "./SignatureModal";
 
 const ConteudosTemplate = () => {
   const [card, setCard] = useState<TreinamentoItem>();
   const cardId = useSelector((state: any) => state.id);
+  const cardType = useSelector((state: any) => state.type);
   const router = useRouter();
   const [isFinishDisabled, setIsFinishDisabled] = useState<boolean>(true);
   const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean[]>([]);
-  const [isOpen, setIsOpen] = useState<boolean>(true);
-
-  const handleAuthentication = async () => {
-    const compatible = await LocalAuthentication.hasHardwareAsync();
-    const enrolled = await LocalAuthentication.isEnrolledAsync();
-
-    if (!compatible || !enrolled) {
-      alert("Autenticação não disponível ou não configurada.");
-      return;
-    }
-
-    const result = await LocalAuthentication.authenticateAsync({
-      promptMessage: "Confirme que é você",
-      fallbackLabel: "Usar senha",
-    });
-
-    if (result.success) {
-      router.push("/conteudos/confirmIdentity");
-    } else {
-      alert("Autenticação falhou.");
-    }
-  };
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     fetchTreinosData();
-  }, [cardId]);
+  }, [cardId, cardType]);
 
   const urlIp = process.env.EXPO_PUBLIC_API_URL;
 
-  const url = `${urlIp}:1337/api/treinos/${cardId}?populate=*`;
+  const url = `${urlIp}:1337/api/${cardType}/${cardId}?populate=*`;
 
   const fetchTreinosData = async () => {
     try {
@@ -116,17 +95,21 @@ const ConteudosTemplate = () => {
                   data={quiz}
                 />
               ))}
-            <S.FinishTraining
-              onPress={handleAuthentication}
-              disabled={isFinishDisabled}
-              $isDisabled={isFinishDisabled}
-            >
-              <S.FinishTrainingText>Finalizar Treinamento</S.FinishTrainingText>
-            </S.FinishTraining>
+            {cardType === "treinos" ? (
+              <S.FinishTraining
+                onPress={() => setIsOpen(true)}
+                disabled={isFinishDisabled}
+                $isDisabled={isFinishDisabled}
+              >
+                <S.FinishTrainingText>
+                  Finalizar Treinamento
+                </S.FinishTrainingText>
+              </S.FinishTraining>
+            ) : null}
           </ScrollView>
         </S.TreinamentoContainer>
       </SafeAreaView>
-      {isOpen ? <SignatureModal /> : null}
+      {isOpen ? <SignatureModal setIsOpen={() => setIsOpen(false)} /> : null}
     </>
   );
 };

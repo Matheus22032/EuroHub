@@ -1,10 +1,9 @@
 import Container from "@/components/Container";
-import { BackContainer } from "@/components/GoBackContainer/styles";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as S from "./styles";
-import { Text } from "react-native";
 import { useState } from "react";
 import ArrowButton from "@/components/ArrowButton";
+import React from "react";
 
 const ConfirmIdentityTemplate = () => {
   const [rate, setRate] = useState<number | null>(null);
@@ -34,11 +33,7 @@ const ConfirmIdentityTemplate = () => {
             ))}
           </S.NotaContainer>
           <S.ArrowContainer>
-            <ArrowButton
-              width="82px"
-              type="next"
-              linkDirection="/treinamentos/treinamentoScreen"
-            />
+            <ArrowButton width="82px" type="next" linkDirection="/home" />
           </S.ArrowContainer>
         </S.Container>
       </Container>
