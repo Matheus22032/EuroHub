@@ -10,16 +10,15 @@ export const HomeContainer = styled.View`
 `;
 
 export const HeroText = styled.Text`
-  margin: 70px 0;
+  margin: 50px 0;
   color: ${Colors.cultured};
   font-family: CabinetThin;
   font-size: 30px;
 `;
 
 export const ProfileContainer = styled.View`
-  width:100%;
+  width: 100%;
 `;
-
 
 export const CardsContainer = styled.View`
   display: flex;

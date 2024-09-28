@@ -4,20 +4,37 @@ import * as S from "./styles";
 import GoBackContainer from "@/components/GoBackContainer";
 import { ScrollView } from "react-native";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { cardSlice } from "@/redux/store";
-import { TreinamentoItem } from "@/interfaces/interfaces";
+import {
+  ConhecimentoAttributes,
+  ConhecimentoItem,
+  TreinamentoItem,
+} from "@/interfaces/interfaces";
 import ConhecimentoCard from "@/components/ConhecimentoCard";
+import React from "react";
+import axios from "axios";
 
 const ConhecimentoTemplate = () => {
   const dispatch = useDispatch();
 
-  const [cards, setCards] = useState<TreinamentoItem[]>([]);
-  const [activeTag, setActiveTag] = useState<number>(0);
+  const [cards, setCards] = useState<ConhecimentoItem[]>([]);
+  const [filteredCards, setFilteredCards] = useState<ConhecimentoItem[]>([]);
+  const [activeTag, setActiveTag] = useState<string>("Todos");
 
-  const onClickTag = (index: number) => {
-    setActiveTag(index);
+  const onClickTag = (tag: string) => {
+    setActiveTag(tag);
+    if (tag === "Todos") {
+      setFilteredCards(cards);
+      return;
+    }
+    setFilteredCards(
+      cards.filter((card) =>
+        card.attributes.tags.data
+          .map((tag) => tag.attributes.TagName)
+          .includes(tag)
+      )
+    );
   };
 
   const tags = [
@@ -31,7 +48,27 @@ const ConhecimentoTemplate = () => {
   ];
 
   const setCardId = (id: number) => {
-    dispatch(cardSlice.actions.setCurrentCard(id));
+    dispatch(cardSlice.actions.setCurrentCard({ id, type: "conhecimentos" }));
+  };
+
+  useEffect(() => {
+    fetchTreinosData();
+  }, []);
+
+  const urlIp = process.env.EXPO_PUBLIC_API_URL;
+
+  const url = `${urlIp}:1337/api/conhecimentos?populate=*`;
+
+  const fetchTreinosData = async () => {
+    try {
+      const response = await axios.get(url);
+
+      const data: ConhecimentoItem[] = response.data.data;
+      setCards(data);
+      setFilteredCards(data.filter((card) => card.attributes.tags.data.length));
+    } catch (error) {
+      console.log("error fetching dataa", error);
+    }
   };
 
   return (
@@ -44,11 +81,11 @@ const ConhecimentoTemplate = () => {
               <S.ConhecimentoTagsContainer>
                 {tags.map((tag, index) => (
                   <S.ConhecimentoTag
-                    $isActive={activeTag === index}
-                    onPress={() => setActiveTag(index)}
+                    $isActive={activeTag === tag}
+                    onPress={() => onClickTag(tag)}
                     key={tag}
                   >
-                    <S.ConhecimentoTagText $isActive={activeTag === index}>
+                    <S.ConhecimentoTagText $isActive={activeTag === tag}>
                       {tag}
                     </S.ConhecimentoTagText>
                   </S.ConhecimentoTag>
@@ -58,17 +95,19 @@ const ConhecimentoTemplate = () => {
           </S.ConhecimentoHeaderContent>
           <ScrollView>
             <S.ConhecimentosContent>
-              <ConhecimentoCard
-                title="titulo"
-                subtitle="subtitulo"
-                linkDirection={"/conteudos/conteudoScreen"}
-                pressFunction={() => setCardId(1)}
-                tags={["tag1", "tag2", "tag3", "tag4", "tag5"]}
-                coverImage={{
-                  url: "https://picsum.photos/200/300",
-                  alt: "image",
-                }}
-              />
+              {filteredCards.map((card) => (
+                <ConhecimentoCard
+                  key={card.id}
+                  title={card.attributes.ContentTitle}
+                  subtitle={card.attributes.ContentDescription}
+                  linkDirection={"/conteudos/conteudoScreen"}
+                  pressFunction={() => setCardId(card.id)}
+                  tags={card.attributes.tags.data.map(
+                    (tag) => tag.attributes.TagName
+                  )}
+                  publishedAt={card.attributes.publishedAt}
+                />
+              ))}
             </S.ConhecimentosContent>
           </ScrollView>
         </S.ConhecimentoContainer>

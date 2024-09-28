@@ -9,6 +9,52 @@ export interface TreinamentoAttributes {
   expireDate?: string;
 }
 
+export interface TextContent {
+  type: string;
+  text: string;
+}
+
+export interface ParagraphContent {
+  type: string;
+  children: TextContent[];
+}
+
+export interface ContentProps {
+  type: string;
+  children: TextContent[];
+}
+
+export interface TagAttributes {
+  TagName: string;
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt?: string;
+}
+
+export interface TagData {
+  id: number;
+  attributes: TagAttributes;
+}
+
+export interface TagProps {
+  data: TagData[];
+}
+
+export interface ConhecimentoAttributes {
+  ContentTitle: string;
+  ContentDescription: string;
+  Content?: ContentProps[];
+  createdAt?: string;
+  updatedAt?: string;
+  publishedAt: string;
+  tags: TagProps;
+}
+
+export interface ConhecimentoItem {
+  id: number;
+  attributes: ConhecimentoAttributes;
+}
+
 export interface TreinamentoItem {
   id: number;
   attributes: TreinamentoAttributes;

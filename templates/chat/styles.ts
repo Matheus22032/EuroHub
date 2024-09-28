@@ -57,10 +57,10 @@ export const MessageContainer = styled.View`
 
 export const ChatMessage = styled.View<{ $role: string }>`
   padding: 12px;
-  margin-left: ${({ $role }) => ($role === "user" ? "0" : "15px")};
-  margin-right: ${({ $role }) => ($role === "user" ? "15px" : "0")};
+  margin-left: ${({ $role }) => ($role === "user" ? "0" : "25px")};
+  margin-right: ${({ $role }) => ($role === "user" ? "25px" : "0")};
   border-radius: ${({ $role }) =>
-    $role === "user" ? "20px 20px 0 20px" : "20px 20px 20px 0"};
+    $role === "user" ? "10px 10px 0 10px" : "10px 10px 10px 0"};
   background-color: rgba(85, 85, 85, 0.8);
   width: ${({ $role }) => ($role === "user" ? "40%" : "50%")};
   z-index: 1;
@@ -68,9 +68,9 @@ export const ChatMessage = styled.View<{ $role: string }>`
 `;
 
 export const ChatBubbleTail = styled.ImageBackground<{ $role: string }>`
-  width: 15px;
-  height: 15px;
-  border-radius: 7.5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 12.5px;
   background-color: #fff;
   background-size: cover;
   align-self: ${({ $role }) => ($role === "user" ? "flex-end" : "flex-start")};

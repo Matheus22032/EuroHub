@@ -18,7 +18,7 @@ const TreinamentoTemplate = () => {
   const [cards, setCards] = useState<TreinamentoItem[]>([]);
 
   const setCardId = (id: number) => {
-    dispatch(cardSlice.actions.setCurrentCard(id));
+    dispatch(cardSlice.actions.setCurrentCard({ id, type: "treinos" }));
   };
 
   useEffect(() => {

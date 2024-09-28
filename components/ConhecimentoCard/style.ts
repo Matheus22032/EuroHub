@@ -56,3 +56,15 @@ export const ContainerButton = styled.View`
   flex-direction: row;
   justify-content: flex-end;
 `;
+
+export const ExpireDate = styled(ContentSubtitle)`
+  font-family: CabinetBold;
+`;
+
+export const BottomContent = styled.View<{ $hasDate: boolean }>`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: ${({ $hasDate }) =>
+    $hasDate ? "space-between" : "flex-end"};
+`;

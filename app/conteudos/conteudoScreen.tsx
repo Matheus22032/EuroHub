@@ -1,7 +1,8 @@
-import ConteudosTemplate from "@/templates/conteudos"
+import ConteudosTemplate from "@/templates/conteudos";
+import React from "react";
 
 const ConteudosScreen = () => {
-    return <ConteudosTemplate />
-}
+  return <ConteudosTemplate />;
+};
 
 export default ConteudosScreen;

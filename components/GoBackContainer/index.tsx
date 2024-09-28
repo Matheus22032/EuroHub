@@ -2,6 +2,7 @@ import { Href, useRouter } from "expo-router";
 import ArrowButton from "../ArrowButton";
 import * as S from "./styles";
 import { GoBackContainerProps } from "./props";
+import React from "react";
 
 const GoBackContainer = ({ link }: GoBackContainerProps) => {
   const router = useRouter();

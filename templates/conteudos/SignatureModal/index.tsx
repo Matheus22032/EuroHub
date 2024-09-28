@@ -10,13 +10,19 @@ import {
   useTouchHandler,
 } from "@shopify/react-native-skia";
 import { Colors } from "@/constants/Colors";
+import * as LocalAuthentication from "expo-local-authentication";
+import { useRouter } from "expo-router";
+import { SignatureModalProps } from "./props";
+import { LogBox } from "react-native";
 
-export const SignatureModal = () => {
+export const SignatureModal = ({ setIsOpen }: SignatureModalProps) => {
   const [path] = useState(Skia.Path.Make());
   const canvaRef = useRef<SkiaDomView | null>(null);
   const [shouldReset, setShouldReset] = useState(false);
   const [signature, setSignature] = useState("");
   const [disabled, setDisabled] = useState(true);
+  const router = useRouter();
+  //   LogBox.ignoreAllLogs();
 
   const touchHandler = useTouchHandler({
     onStart: (touchInfo: TouchInfo) => {
@@ -37,12 +43,38 @@ export const SignatureModal = () => {
     },
   });
 
+  const handleAuthentication = async () => {
+    const compatible = await LocalAuthentication.hasHardwareAsync();
+    const enrolled = await LocalAuthentication.isEnrolledAsync();
+
+    if (!compatible || !enrolled) {
+      alert("Autenticação não disponível ou não configurada.");
+      return;
+    }
+
+    const result = await LocalAuthentication.authenticateAsync({
+      promptMessage: "Confirme que é você",
+      fallbackLabel: "Usar senha",
+    });
+
+    if (result.success) {
+      router.push("/conteudos/confirmIdentity");
+    } else {
+      alert("Autenticação falhou.");
+    }
+  };
+
   const onReset = () => {
     setShouldReset(true);
   };
 
   const onSend = () => {
-    console.log(signature);
+    console.log("enviado", signature);
+    handleAuthentication();
+  };
+
+  const onClose = () => {
+    setIsOpen(false);
   };
 
   useEffect(() => {
@@ -51,14 +83,13 @@ export const SignatureModal = () => {
       setShouldReset(false);
       setDisabled(true); // Desabilita o botão após o reset
     }
-    console.log(disabled);
   }, [shouldReset, path]);
 
   return (
     <S.SignatureModalContainer>
       <S.SignatureModalContent>
         <S.HeaderModal>
-          <S.SignatureModalClose>
+          <S.SignatureModalClose onPress={onClose}>
             <S.CloseContainer>
               <S.CloseBar1 />
               <S.CloseBar2 />

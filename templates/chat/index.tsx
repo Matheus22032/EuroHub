@@ -21,7 +21,6 @@ const ChatTemplate = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [messages, setMessages] = useState<ChatProps[]>(C.messages);
-  const scrollViewRef = useRef<ScrollView>(null);
 
   interface fetchProps {
     message: string;

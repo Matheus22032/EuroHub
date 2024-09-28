@@ -1,4 +1,3 @@
-import { ImageProps } from "@/interfaces/interfaces";
 import { Href } from "expo-router";
 
 export interface ContentProps {
@@ -6,6 +5,6 @@ export interface ContentProps {
   subtitle: String;
   linkDirection: Href;
   tags?: String[];
-  coverImage?: ImageProps;
   pressFunction?: () => void;
+  publishedAt: string;
 }

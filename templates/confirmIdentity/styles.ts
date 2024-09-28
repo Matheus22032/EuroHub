@@ -12,7 +12,7 @@ export const ConfirmIdentityTitleContainer = styled.View`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 40px;
+  padding: 30px;
   margin: 70px auto;
   gap: 10px;
 `;
@@ -33,14 +33,14 @@ export const RateText = styled.Text`
   font-size: 24px;
   font-family: CabinetBold;
   color: ${Colors.cultured};
-  padding: 0 40px;
+  padding: 0 30px;
 `;
 
 export const NotaContainer = styled.View`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 20px 40px;
+  padding: 20px 30px;
   flex-wrap: wrap;
 `;
 
@@ -67,5 +67,5 @@ export const NotaText = styled.Text<{ $isActive: boolean }>`
 export const ArrowContainer = styled.View`
   display: flex;
   align-self: flex-end;
-  padding: 160px 40px;
+  padding: 180px 40px;
 `;
