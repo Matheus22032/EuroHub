@@ -4,18 +4,17 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 import React, { LegacyRef, useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { Modal, ScrollView, Text } from "react-native";
+import { ActivityIndicator, Modal, ScrollView, Text } from "react-native";
 import { TreinamentoItem } from "@/interfaces/interfaces";
 import QuizComponent from "@/components/QuizComponent";
 import ImageComponent from "@/components/ImageComponent";
-import { useRouter } from "expo-router";
 import { SignatureModal } from "./SignatureModal";
 
 const ConteudosTemplate = () => {
   const [card, setCard] = useState<TreinamentoItem>();
   const cardId = useSelector((state: any) => state.id);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const cardType = useSelector((state: any) => state.type);
-  const router = useRouter();
   const [isFinishDisabled, setIsFinishDisabled] = useState<boolean>(true);
   const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -26,7 +25,7 @@ const ConteudosTemplate = () => {
 
   const urlIp = process.env.EXPO_PUBLIC_API_URL;
 
-  const url = `${urlIp}:1337/api/${cardType}/${cardId}?populate=*`;
+  const url = `${urlIp}${cardType}/${cardId}?populate=*`;
 
   const fetchTreinosData = async () => {
     try {
@@ -35,6 +34,7 @@ const ConteudosTemplate = () => {
       setCard(data);
       const totalQuizQuestions = data?.attributes.Quiz?.length || 0;
       setIsAnswerCorrect(new Array(totalQuizQuestions).fill(false));
+      setIsLoading(false);
     } catch (error) {
       console.log("error fetching data", error);
     }
@@ -62,6 +62,13 @@ const ConteudosTemplate = () => {
             {card?.attributes.ContentTitle}
           </S.TreinamentoTitle>
           <ScrollView>
+            {isLoading ? (
+              <ActivityIndicator
+                size={45}
+                color="#fff"
+                style={{ marginVertical: 10 }}
+              />
+            ) : null}
             {card?.attributes.Content?.map((item, index) => {
               if (item.type === "paragraph") {
                 return (
@@ -95,7 +102,7 @@ const ConteudosTemplate = () => {
                   data={quiz}
                 />
               ))}
-            {cardType === "treinos" ? (
+            {cardType === "treinos" && !isLoading ? (
               <S.FinishTraining
                 onPress={() => setIsOpen(true)}
                 disabled={isFinishDisabled}

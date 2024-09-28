@@ -3,7 +3,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import * as S from "./styles";
 import GoBackContainer from "@/components/GoBackContainer";
 import ContentCard from "@/components/ContentCard";
-import { ScrollView } from "react-native";
+import { ActivityIndicator, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +16,7 @@ const TreinamentoTemplate = () => {
   const dispatch = useDispatch();
 
   const [cards, setCards] = useState<TreinamentoItem[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const setCardId = (id: number) => {
     dispatch(cardSlice.actions.setCurrentCard({ id, type: "treinos" }));
@@ -27,11 +28,11 @@ const TreinamentoTemplate = () => {
 
   const employeeId = User.id;
 
-  const currentDate = new Date().toISOString(); // Pega a data atual em formato ISO
+  const currentDate = new Date().toISOString();
 
   const urlIp = process.env.EXPO_PUBLIC_API_URL;
 
-  const url = `${urlIp}:1337/api/treinos?filters[employees][employee_id][$eq]=${employeeId}&filters[expireDate][$gt]=${currentDate}`;
+  const url = `${urlIp}treinos?filters[employees][employee_id][$eq]=${employeeId}&filters[expireDate][$gt]=${currentDate}`;
 
   const fetchTreinosData = async () => {
     try {
@@ -39,6 +40,7 @@ const TreinamentoTemplate = () => {
 
       const data: TreinamentoItem[] = response.data.data;
       setCards(data);
+      setIsLoading(false);
     } catch (error) {
       console.log("error fetching data", error);
     }
@@ -54,6 +56,13 @@ const TreinamentoTemplate = () => {
           </S.TreinamentoHeaderContent>
           <ScrollView>
             <S.TreinamentosContent>
+              {isLoading ? (
+                <ActivityIndicator
+                  size={45}
+                  color="#fff"
+                  style={{ marginVertical: 10 }}
+                />
+              ) : null}
               {cards.map((card) => (
                 <ContentCard
                   key={card.id}

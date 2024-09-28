@@ -27,7 +27,7 @@ const ChatTemplate = () => {
   }
 
   const fetchData = async ({ message }: fetchProps) => {
-    const urlIp = process.env.EXPO_PUBLIC_API_URL;
+    const urlIp = process.env.EXPO_PUBLIC_IP_URL;
     const url = `${urlIp}:3001/ollama`;
 
     const body = {

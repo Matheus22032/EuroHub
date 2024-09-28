@@ -2,7 +2,7 @@ import Container from "@/components/Container";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as S from "./styles";
 import GoBackContainer from "@/components/GoBackContainer";
-import { ScrollView } from "react-native";
+import { ActivityIndicator, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { cardSlice } from "@/redux/store";
@@ -21,6 +21,7 @@ const ConhecimentoTemplate = () => {
   const [cards, setCards] = useState<ConhecimentoItem[]>([]);
   const [filteredCards, setFilteredCards] = useState<ConhecimentoItem[]>([]);
   const [activeTag, setActiveTag] = useState<string>("Todos");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const onClickTag = (tag: string) => {
     setActiveTag(tag);
@@ -57,7 +58,7 @@ const ConhecimentoTemplate = () => {
 
   const urlIp = process.env.EXPO_PUBLIC_API_URL;
 
-  const url = `${urlIp}:1337/api/conhecimentos?populate=*`;
+  const url = `${urlIp}conhecimentos?populate=*`;
 
   const fetchTreinosData = async () => {
     try {
@@ -66,6 +67,7 @@ const ConhecimentoTemplate = () => {
       const data: ConhecimentoItem[] = response.data.data;
       setCards(data);
       setFilteredCards(data.filter((card) => card.attributes.tags.data.length));
+      setIsLoading(false);
     } catch (error) {
       console.log("error fetching dataa", error);
     }
@@ -79,7 +81,7 @@ const ConhecimentoTemplate = () => {
             <GoBackContainer link="/home" />
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <S.ConhecimentoTagsContainer>
-                {tags.map((tag, index) => (
+                {tags.map((tag) => (
                   <S.ConhecimentoTag
                     $isActive={activeTag === tag}
                     onPress={() => onClickTag(tag)}
@@ -95,6 +97,13 @@ const ConhecimentoTemplate = () => {
           </S.ConhecimentoHeaderContent>
           <ScrollView>
             <S.ConhecimentosContent>
+              {isLoading ? (
+                <ActivityIndicator
+                  size={45}
+                  color="#fff"
+                  style={{ marginVertical: 10 }}
+                />
+              ) : null}
               {filteredCards.map((card) => (
                 <ConhecimentoCard
                   key={card.id}
