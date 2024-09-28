@@ -4,7 +4,7 @@ import C from "./const";
 
 export const Container = styled.View`
   display: flex;
-  flex: 1; /* Ocupa o espaço disponível na tela */
+  flex: 1;
   padding: 20px 0;
 `;
 
