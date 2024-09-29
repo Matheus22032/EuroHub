@@ -2,75 +2,123 @@ import GoBackContainer from "@/components/GoBackContainer";
 import * as S from "./styles";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
-import React, { useEffect, useState } from "react";
+import React, { LegacyRef, useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { ScrollView } from "react-native";
+import { ActivityIndicator, Modal, ScrollView, Text } from "react-native";
 import { TreinamentoItem } from "@/interfaces/interfaces";
 import QuizComponent from "@/components/QuizComponent";
 import ImageComponent from "@/components/ImageComponent";
+import { SignatureModal } from "./SignatureModal";
 
 const ConteudosTemplate = () => {
-    const [card, setCard] = useState<TreinamentoItem>();
-    const cardId = useSelector((state: any) => state.id);
+  const [card, setCard] = useState<TreinamentoItem>();
+  const cardId = useSelector((state: any) => state.id);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const cardType = useSelector((state: any) => state.type);
+  const [isFinishDisabled, setIsFinishDisabled] = useState<boolean>(true);
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-    useEffect(() => {
-        fetchTreinosData();
-    }, [cardId]); 
+  useEffect(() => {
+    fetchTreinosData();
+  }, [cardId, cardType]);
 
-    const url = `http://192.168.0.189:1337/api/treinos/${cardId}?populate=*`;
+  const urlIp = process.env.EXPO_PUBLIC_API_URL;
 
-    const fetchTreinosData = async () => {
-        try {
-            const response = await axios.get(url);
-            const data: TreinamentoItem = response.data.data;
-            setCard(data);
-        } catch (error) {
-            console.log('error fetching data', error);
-        }
+  const url = `${urlIp}${cardType}/${cardId}?populate=*`;
+
+  const fetchTreinosData = async () => {
+    try {
+      const response = await axios.get(url);
+      const data: TreinamentoItem = response.data.data;
+      setCard(data);
+      const totalQuizQuestions = data?.attributes.Quiz?.length || 0;
+      setIsAnswerCorrect(new Array(totalQuizQuestions).fill(false));
+      setIsLoading(false);
+    } catch (error) {
+      console.log("error fetching data", error);
     }
+  };
 
-    // useEffect(() => {
-    //     if (card) {
-    //         card.attributes.Quiz?.map(item => console.log(item))
-            
-    //     }
-    // }, [card]);
+  const handleQuizAnswer = (index: number, isCorrect: boolean) => {
+    setIsAnswerCorrect((prevResults) => {
+      const updatedResults = [...prevResults];
+      updatedResults[index] = isCorrect;
+      return updatedResults;
+    });
+    console.log(isAnswerCorrect);
+  };
 
+  useEffect(() => {
+    setIsFinishDisabled(!isAnswerCorrect.every((answer) => answer === true));
+  }, [isAnswerCorrect]);
 
-    return (
-        <SafeAreaView>
-            <S.TreinamentoContainer>
-                <GoBackContainer />
-                <S.TreinamentoTitle>{card?.attributes.ContentTitle}</S.TreinamentoTitle>
-                <ScrollView>
-                    {
-                        card?.attributes.Content?.map((item, index) => {
-                            if (item.type === 'paragraph') {
-                                return <S.TreinamentoParagraph key={index}>{item.children[0].text}</S.TreinamentoParagraph>
-                            }
-                            if (item.type === 'heading') {
-                                return <S.TreinamentoHeading level={item.level} key={index}>{item.children[0].text}</S.TreinamentoHeading>
-                            }
-                            if (item.type === 'image') {
-                                if (item.image) {
-                                    return <ImageComponent key={index} image={item.image} />
-                                }
-                            }
-                        })
-                    }
-                    {
-                        card?.attributes.Quiz && <S.TreinamentoQuizTitle>Quiz</S.TreinamentoQuizTitle>
-                    }
-                    {
-                        card?.attributes.Quiz &&
-                        card.attributes.Quiz.map((quiz, quizIndex) => (
-                            <QuizComponent key={quizIndex} quizIndex={quizIndex} data={quiz} />
-                        ))
-                    }
-                </ScrollView>
-            </S.TreinamentoContainer>
-        </SafeAreaView>
-    );
-}
+  return (
+    <>
+      <SafeAreaView>
+        <S.TreinamentoContainer>
+          <GoBackContainer />
+          <S.TreinamentoTitle>
+            {card?.attributes.ContentTitle}
+          </S.TreinamentoTitle>
+          <ScrollView>
+            {isLoading ? (
+              <ActivityIndicator
+                size={45}
+                color="#fff"
+                style={{ marginVertical: 10 }}
+              />
+            ) : null}
+            {card?.attributes.Content?.map((item, index) => {
+              if (item.type === "paragraph") {
+                return (
+                  <S.TreinamentoParagraph key={index}>
+                    {item.children[0].text}
+                  </S.TreinamentoParagraph>
+                );
+              }
+              if (item.type === "heading") {
+                return (
+                  <S.TreinamentoHeading level={item.level} key={index}>
+                    {item.children[0].text}
+                  </S.TreinamentoHeading>
+                );
+              }
+              if (item.type === "image") {
+                if (item.image) {
+                  return <ImageComponent key={index} image={item.image} />;
+                }
+              }
+            })}
+            {card?.attributes.Quiz && card.attributes.Quiz.length > 0 ? (
+              <S.TreinamentoQuizTitle>Quiz</S.TreinamentoQuizTitle>
+            ) : null}
+            {card?.attributes.Quiz &&
+              card.attributes.Quiz.map((quiz, quizIndex) => (
+                <QuizComponent
+                  isFinished={handleQuizAnswer}
+                  key={quizIndex}
+                  quizIndex={quizIndex}
+                  data={quiz}
+                />
+              ))}
+            {cardType === "treinos" && !isLoading ? (
+              <S.FinishTraining
+                onPress={() => setIsOpen(true)}
+                disabled={isFinishDisabled}
+                $isDisabled={isFinishDisabled}
+              >
+                <S.FinishTrainingText>
+                  Finalizar Treinamento
+                </S.FinishTrainingText>
+              </S.FinishTraining>
+            ) : null}
+          </ScrollView>
+        </S.TreinamentoContainer>
+      </SafeAreaView>
+      {isOpen ? <SignatureModal setIsOpen={() => setIsOpen(false)} /> : null}
+    </>
+  );
+};
 
 export default ConteudosTemplate;

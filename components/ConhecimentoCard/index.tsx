@@ -1,15 +1,17 @@
-import { Text, TouchableOpacity } from "react-native";
-import React from "react";
+import { TouchableOpacity } from "react-native";
 import ArrowButton from "../ArrowButton";
 import { ContentProps } from "./props";
 import * as S from "./style";
 import { useRouter } from "expo-router";
-const ContentCard: React.FC<ContentProps> = ({
+import ImageComponent from "../ImageComponent";
+import React from "react";
+const ConhecimentoCard: React.FC<ContentProps> = ({
   title,
   subtitle,
   linkDirection,
   pressFunction,
-  expireDate,
+  tags,
+  publishedAt,
 }) => {
   const router = useRouter();
 
@@ -44,14 +46,16 @@ const ContentCard: React.FC<ContentProps> = ({
             <S.ContentSubtitle numberOfLines={2} ellipsizeMode="tail">
               {subtitle}
             </S.ContentSubtitle>
-
-            <S.BottomContent $hasDate={expireDate ? true : false}>
-              {expireDate ? (
-                <S.ContentSubtitle>
-                  Expira em{" "}
-                  <S.ExpireDate>{formatDate(expireDate)}</S.ExpireDate>
-                </S.ContentSubtitle>
-              ) : null}
+            <S.ContentTagsContainer>
+              {tags?.map((tag, index) => (
+                <S.ContentTagText key={index}>#{tag}</S.ContentTagText>
+              ))}
+            </S.ContentTagsContainer>
+            <S.BottomContent $hasDate={publishedAt ? true : false}>
+              <S.ContentSubtitle numberOfLines={2} ellipsizeMode="tail">
+                Publicado em{" "}
+                <S.ExpireDate>{formatDate(publishedAt)}</S.ExpireDate>
+              </S.ContentSubtitle>
               <S.ContainerButton>
                 <ArrowButton width="56px" type="card" />
               </S.ContainerButton>
@@ -63,4 +67,4 @@ const ContentCard: React.FC<ContentProps> = ({
   );
 };
 
-export default ContentCard;
+export default ConhecimentoCard;

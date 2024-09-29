@@ -20,7 +20,6 @@ export const ContainerCard = styled.View`
   width: 100%;
   min-height: 170px;
 `;
-
 export const ContentTitle = styled.Text`
   font-size: 32px;
   color: ${Colors.cultured};
@@ -35,8 +34,27 @@ export const ContentSubtitle = styled.Text`
   max-width: 80%;
 `;
 
+export const ContentTagsContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 0;
+`;
+
+export const ContentTagText = styled.Text`
+  font-size: 16px;
+  font-family: CabinetThin;
+  color: ${Colors.cultured};
+  background-color: rgba(105, 105, 105, 0.7);
+  padding: 8px 12px;
+  border-radius: 12px;
+`;
+
 export const ContainerButton = styled.View`
   display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 `;
 
 export const ExpireDate = styled(ContentSubtitle)`

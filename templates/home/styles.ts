@@ -4,22 +4,21 @@ import { Colors } from "@/constants/Colors";
 export const HomeContainer = styled.View`
   display: flex;
   height: 100%;
-  width: 90%;
-  padding: 50px 0 0 0;
+  width: 100%;
+  padding: 50px 20px 0;
   align-items: center;
 `;
 
 export const HeroText = styled.Text`
-  margin: 70px 0;
+  margin: 50px 0;
   color: ${Colors.cultured};
   font-family: CabinetThin;
   font-size: 30px;
 `;
 
 export const ProfileContainer = styled.View`
-  width:100%;
+  width: 100%;
 `;
-
 
 export const CardsContainer = styled.View`
   display: flex;
