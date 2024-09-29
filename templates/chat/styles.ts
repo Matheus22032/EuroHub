@@ -1,6 +1,7 @@
 import { Colors } from "@/constants/Colors";
 import styled from "styled-components/native";
 import C from "./const";
+import { ScrollView } from "react-native";
 
 export const Container = styled.View`
   display: flex;
@@ -37,7 +38,7 @@ export const InputChat = styled.TextInput`
   border-radius: 30px;
 `;
 
-export const ChatContainer = styled.ScrollView`
+export const ChatContainer = styled(ScrollView)`
   display: flex;
   flex: 1;
   flex-direction: column;

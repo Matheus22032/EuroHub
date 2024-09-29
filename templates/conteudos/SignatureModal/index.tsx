@@ -14,6 +14,9 @@ import * as LocalAuthentication from "expo-local-authentication";
 import { useRouter } from "expo-router";
 import { SignatureModalProps } from "./props";
 import { LogBox } from "react-native";
+import { User } from "@/constants/User";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 export const SignatureModal = ({ setIsOpen }: SignatureModalProps) => {
   const [path] = useState(Skia.Path.Make());
@@ -22,6 +25,8 @@ export const SignatureModal = ({ setIsOpen }: SignatureModalProps) => {
   const [signature, setSignature] = useState("");
   const [disabled, setDisabled] = useState(true);
   const router = useRouter();
+  const userId = User.id;
+  const courseId = useSelector((state: any) => state.id);
   //   LogBox.ignoreAllLogs();
 
   const touchHandler = useTouchHandler({
@@ -58,9 +63,28 @@ export const SignatureModal = ({ setIsOpen }: SignatureModalProps) => {
     });
 
     if (result.success) {
+      await sendSignature();
       router.push("/conteudos/confirmIdentity");
     } else {
       alert("Autenticação falhou.");
+    }
+  };
+
+  const sendSignature = async () => {
+    const body = {
+      employee_id: userId,
+      signature: signature,
+      course_id: courseId,
+    };
+
+    const ip = process.env.EXPO_PUBLIC_IP_URL;
+    const url = `${ip}:8080/`;
+
+    try {
+      const response = axios.post(url, body);
+      console.log(response);
+    } catch (error) {
+      console.log("error sending signature", error);
     }
   };
 

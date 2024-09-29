@@ -21,6 +21,7 @@ const ChatTemplate = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [messages, setMessages] = useState<ChatProps[]>(C.messages);
+  const scrollViewRef = useRef<ScrollView>(null);
 
   interface fetchProps {
     message: string;
@@ -29,6 +30,7 @@ const ChatTemplate = () => {
   const fetchData = async ({ message }: fetchProps) => {
     const urlIp = process.env.EXPO_PUBLIC_IP_URL;
     const url = `${urlIp}:3001/ollama`;
+    // console.log(url);
 
     const body = {
       message: message,
@@ -36,11 +38,14 @@ const ChatTemplate = () => {
 
     setInputText("");
     Keyboard.dismiss();
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollToEnd({ animated: true });
+    }
 
     try {
       const response = await axios.post(url, body);
 
-      console.log(response.data);
+      // console.log(response.data);
 
       setMessages((prevMessages) => [
         ...prevMessages,
@@ -72,6 +77,9 @@ const ChatTemplate = () => {
     setIsDisabled(true);
     setMessages([...messages, { role: "user", message: inputText }]);
     await fetchData({ message: inputText });
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollToEnd({ animated: true });
+    }
   };
 
   return (
@@ -81,7 +89,7 @@ const ChatTemplate = () => {
           <S.Container>
             <GoBackContainer link={"/home"} />
             <S.ChatTitle>Chat com Rochelle</S.ChatTitle>
-            <S.ChatContainer>
+            <S.ChatContainer alwaysBounceVertical ref={scrollViewRef}>
               {messages.map((message) => (
                 <S.MessageContainer key={message.message}>
                   <S.ChatMessage $role={message.role}>
