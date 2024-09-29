@@ -19,17 +19,17 @@ const QuizComponent = ({ data, quizIndex, isFinished }: QuizComponentProps) => {
             <S.AnswerContainer
               key={index}
               onPress={() => {
-                isFinished(quizIndex, index === correctAnswer);
+                isFinished(quizIndex, index + 1 === correctAnswer);
                 setSelectedAnswer(index);
               }}
             >
               <S.AnswerButton
                 $isActive={selectedAnswer === index}
-                $isWrong={index != correctAnswer}
+                $isWrong={index + 1 != correctAnswer}
               />
               <S.AnswerText
                 $isActive={selectedAnswer === index}
-                $isWrong={index != correctAnswer}
+                $isWrong={index + 1 != correctAnswer}
               >
                 {resposta.children[0].text}
               </S.AnswerText>

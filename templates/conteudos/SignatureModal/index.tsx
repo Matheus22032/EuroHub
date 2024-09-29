@@ -27,7 +27,7 @@ export const SignatureModal = ({ setIsOpen }: SignatureModalProps) => {
   const router = useRouter();
   const userId = User.id;
   const courseId = useSelector((state: any) => state.id);
-  //   LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
 
   const touchHandler = useTouchHandler({
     onStart: (touchInfo: TouchInfo) => {
